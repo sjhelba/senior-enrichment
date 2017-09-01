@@ -1,4 +1,5 @@
 import axios from 'axios';
+import getSelectedCampus from './index';
 
 // ACTION TYPES
 const GET_CAMPUSES = 'GET_CAMPUSES'
@@ -56,7 +57,7 @@ export function deleteCampus (campusId) {
   return function thunk (dispatch) {
     return axios.delete(`/api/campuses/${campusId}`)
       .then(res => res.data)
-      .then(id => dispatch(removeCampus(id)))
+      .then(() => dispatch(removeCampus(campusId)))
       .catch(err => console.error(err))
   }
 }
@@ -67,7 +68,9 @@ export function updateCampus (campusData) {
     return axios.put(`http://localhost:1337/api/campuses/${campusData.id}`, campusData)
       .then(res => res.data)
       .then(campus => {
-        dispatch(editCampus(campus))})
+        console.log('campus', campus)
+        dispatch(editCampus(campus))
+      })
       .catch(err => console.error(err))
   }
 }

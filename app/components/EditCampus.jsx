@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import store from '../store';
-import {updateCampus, updateStudent, fetchSelectedStudent} from '../reducers';
+import {updateCampus, updateStudent, fetchSelectedStudent, fetchSelectedCampus} from '../reducers';
 import { Link } from 'react-router-dom';
 
 
@@ -34,11 +34,11 @@ export default class EditCampus extends Component {
       name,
       image
     }))
+      .then(store.dispatch(fetchSelectedCampus(id)))
       .then(this.setState({
         name,
         image,
         changesSavedHidden: false,
-        selectedCampus: this.props.selectedCampus
       }
     ))
   }
@@ -113,7 +113,7 @@ export default class EditCampus extends Component {
             <input onChange={this.handleNameChange} value={this.state.name} name="name" />
             <h4>Image</h4>
             <input onChange={this.handleImageChange} value={this.state.image} name="image" />
-            <button>Submit Campus Changes</button>
+            <button className="btn btn-primary" type="submit">Submit Campus Changes</button>
             <p hidden={this.state.changesSavedHidden}>Changes Saved</p>
           </form>
 
@@ -130,7 +130,7 @@ export default class EditCampus extends Component {
                       )
                     })}
                   </select>
-                  <button>Add Student</button>
+                  <button className="btn btn-primary" type="submit">Add Student</button>
                 </form>
               </div>
               <div hidden={this.state.removeStudentForm}>

@@ -73,7 +73,7 @@ export default class EditStudent extends Component {
               })}
             </select>
 
-            <button>Submit</button>
+            <button className="btn btn-primary" type="submit">Submit</button>
             <p hidden={this.state.changesSavedHidden}>Changes Saved</p>
           </form>
         </div>

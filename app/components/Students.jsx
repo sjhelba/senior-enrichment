@@ -92,7 +92,7 @@ export default class Students extends Component {
                   return <option value={campus.id} key={campus.id}>{campus.name}</option>
                 })}
               </select>
-              <button>Submit</button>
+              <button className="btn btn-primary" type="submit" >Submit</button>
           </form>
         </div>
       </div>

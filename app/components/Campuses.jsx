@@ -32,6 +32,7 @@ export default class Campuses extends Component {
   }
 
   handleDelete (campusId){
+    console.log('running')
     store.dispatch(deleteCampus(campusId))
   }
 
