@@ -45,7 +45,7 @@ export function fetchCampuses () {
 
 export function createNewCampus (campusData) {
   return function thunk (dispatch) {
-    return axios.post('./api/campuses', campusData)
+    return axios.post('/api/campuses', campusData)
       .then(res => res.data)
       .then(campus => dispatch(addCampus(campus)))
       .catch(err => console.error(err))
@@ -54,7 +54,7 @@ export function createNewCampus (campusData) {
 
 export function deleteCampus (campusId) {
   return function thunk (dispatch) {
-    return axios.delete(`./api/campuses/${campusId}`)
+    return axios.delete(`/api/campuses/${campusId}`)
       .then(res => res.data)
       .then(id => dispatch(removeCampus(id)))
       .catch(err => console.error(err))
@@ -63,7 +63,8 @@ export function deleteCampus (campusId) {
 
 export function updateCampus (campusData) {
   return function thunk (dispatch) {
-    return axios.put(`http://localhost:1337/api/students/${campusData.id}`, campusData)
+    console.log('campus data I\'m passing to back', campusData)
+    return axios.put(`http://localhost:1337/api/campuses/${campusData.id}`, campusData)
       .then(res => res.data)
       .then(campus => {
         dispatch(editCampus(campus))})

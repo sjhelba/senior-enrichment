@@ -23,9 +23,11 @@ export default class CampusesContainer extends Component {
     this.setState(store.getState())
   }
 
+
   render() {
     return (
       <div>
+      <h1>CONTAINER</h1>
       <Campuses campuses={this.state.campuses} students={this.state.students} />
       </div>
     )

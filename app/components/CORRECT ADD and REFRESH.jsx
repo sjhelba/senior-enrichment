@@ -9,7 +9,8 @@ export default class Campuses extends Component {
     super(props)
     this.state = {
       addformHidden: true,
-      nameInput: ''
+      nameInput: '',
+      campuses: this.props.campuses
     }
 
     this.toggleForm = this.toggleForm.bind(this);
@@ -33,6 +34,7 @@ export default class Campuses extends Component {
 
   handleDelete (campusId){
     store.dispatch(deleteCampus(campusId))
+      .then(this.setState({campuses: this.state.campuses.filter((campus) => campus.id !== campusId)}))
   }
 
   handleChange (event) {
@@ -42,7 +44,7 @@ export default class Campuses extends Component {
   }
 
   render() {
-    const campuses = this.props.campuses
+    const campuses = this.state.campuses || this.props.campuses
     return (
       <div>
         <h3>CAMPUSES</h3>

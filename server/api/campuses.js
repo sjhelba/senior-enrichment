@@ -25,6 +25,8 @@ api.post('/', (req, res, next) => {
 })
 
 api.put('/:campusId', (req, res, next) => {
+  console.log('req.body:', req.body)
+  console.log('req.params.campusId:', req.params.campusId)
   Campuses.findById(req.params.campusId)
   .then((campus) => campus.update(req.body))
   .then((updatedCampus) => res.json(updatedCampus))
