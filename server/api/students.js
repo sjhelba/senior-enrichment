@@ -1,44 +1,47 @@
 const api = require('express').Router()
-const models = require('../db/models')
-const students = models.Students;
+const models = require('../../db/models')
+const Students = models.Student;
 
 
 api.get('/', (req, res, next) => {
-  students.findAll()
+  Students.findAll()
     .then((studentList) => res.json(studentList))
-    .catch(next)
+    .catch(err => console.error(err))
 })
 
 api.get('/:studentId', (req, res, next) => {
-  students.findById(req.params.studentId)
+  Students.findById(req.params.studentId)
     .then((student) => res.json(student))
-    .catch(next)
+    .catch(err => console.error(err))
 })
 
 api.post('/', (req, res, next) => {
-  students.create({
+  Students.create({
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    campusId: req.body.campusId
   })
     .then((student) => res.json(student))
-    .catch(next)
+    .catch(err => console.error(err))
 })
 
 api.put('/:studentId', (req, res, next) => {
-  students.findById(req.params.studentId)
+  console.log('req.body', req.body);
+  console.log('req.params.studentId', req.params.studentId);
+  Students.findById(req.params.studentId)
   .then((student) => student.update(req.body))
   .then((updatedstudent) => res.json(updatedstudent))
-  .catch(next)
+  .catch(err => console.error(err))
 })
 
 api.delete('/:studentId', (req, res, next) => {
-  let name;
-  students.findById(req.params.studentId)
+  let id;
+  Students.findById(req.params.studentId)
     .then((student) => {
-      name = student.name;
+      id = student.id;
       student.destroy();
     })
-    .then(() => res.send('student' + name + 'destroyed'))
+    .then(() => res.json(id))
 })
 
 module.exports = api

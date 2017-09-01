@@ -1,39 +1,39 @@
 const api = require('express').Router()
-const models = require('../db/models')
-const campuses = models.Campuses;
+const models = require('../../db/models')
+const Campuses = models.Campus;
 
 
 api.get('/', (req, res, next) => {
-  campuses.findAll()
+  Campuses.findAll()
     .then((campusList) => res.json(campusList))
-    .catch(next)
+    .catch(err => console.error(err))
 })
 
 api.get('/:campusId', (req, res, next) => {
-  campuses.findById(req.params.campusId)
+  Campuses.findById(req.params.campusId)
     .then((campus) => res.json(campus))
-    .catch(next)
+    .catch(err => console.error(err))
 })
 
 api.post('/', (req, res, next) => {
-  campuses.create({
+  Campuses.create({
     name: req.body.name,
-    email: req.body.image
+    image: req.body.image
   })
     .then((campus) => res.json(campus))
-    .catch(next)
+    .catch(err => console.error(err))
 })
 
 api.put('/:campusId', (req, res, next) => {
-  campuses.findById(req.params.campusId)
+  Campuses.findById(req.params.campusId)
   .then((campus) => campus.update(req.body))
   .then((updatedCampus) => res.json(updatedCampus))
-  .catch(next)
+  .catch(err => console.error(err))
 })
 
 api.delete('/:campusId', (req, res, next) => {
   let name;
-  campuses.findById(req.params.campusId)
+  Campuses.findById(req.params.campusId)
     .then((campus) => {
       name = campus.name;
       campus.destroy();

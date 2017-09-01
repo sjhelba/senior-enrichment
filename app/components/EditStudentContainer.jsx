@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import store from '../store';
 import {fetchSelectedStudent, fetchSelectedCampus} from '../reducers';
-import { Link } from 'react-router-dom';
+import EditStudent from './EditStudent';
 
-export default class SingleStudent extends Component {
+export default class EditStudentContainer extends Component {
   constructor(props) {
     super(props)
     this.state = store.getState()
@@ -19,21 +19,18 @@ export default class SingleStudent extends Component {
   }
 
   componentWillUnmount() {
-    this.unsubscribe()
+    this.unsubscribe();
   }
+
 
   render() {
     const selectedStudent = this.state.selectedStudent;
     const selectedCampus = this.state.selectedCampus;
     return (
       <div>
-        <div>
-          <h3>{selectedStudent.name}</h3>
-          <h4>{`Email: ${selectedStudent.email || 'currently unprovided'}`}</h4>
-          <h4><Link to={`/campuses/${selectedStudent.campusId}`}>{`Campus: ${selectedCampus.name}`}</Link></h4>
-        </div>
-        <Link to={`/students/edit/${selectedStudent.id}`}>edit</Link>
+      <EditStudent selectedStudent={selectedStudent} selectedCampus={selectedCampus} campuses={this.state.campuses} students={this.state.students} />
       </div>
     )
   }
+
 }
