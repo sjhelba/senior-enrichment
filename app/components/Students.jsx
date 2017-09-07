@@ -22,9 +22,9 @@ export default class Students extends Component {
     this.setState({formHidden: !this.state.formHidden})
   }
 
-  componentWillUpdate () {
-    store.dispatch(fetchStudents())
-  }
+  // componentWillUpdate () {
+  //   store.dispatch(fetchStudents())
+  // }
 
   handleSubmit (event) {
     event.preventDefault()
@@ -69,6 +69,7 @@ export default class Students extends Component {
           </thead>
           <tbody>
             {students.map((student, index) => {
+              console.log(student)
               return (
                 <tr key={student.id}>
                 <th>{index + 1}</th>

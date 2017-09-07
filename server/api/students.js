@@ -21,7 +21,8 @@ api.post('/', (req, res, next) => {
     email: req.body.email,
     campusId: req.body.campusId
   })
-    .then((student) => res.json(student))
+    .then(student => Students.findById(student.id))
+    .then(studentWithCampus => res.json(studentWithCampus))
     .catch(err => console.error(err))
 })
 
